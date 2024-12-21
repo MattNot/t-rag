@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv("./env/.env")
+
 from llama_index.core.objects import (
     SQLTableNodeMapping,
     ObjectIndex,
@@ -25,4 +28,8 @@ obj_index = ObjectIndex.from_objects(
 query_engine = SQLTableRetrieverQueryEngine(
     sql_database, obj_index.as_retriever(similarity_top_k=1)
 )
-response = query_engine.query("Which player has the highest expected goals?")
+response = query_engine.query("Give me the 15 players that have the highest expected goals divided per match played, exclude those who have played 0 matches")
+
+print(response)
+
+print(response.metadata)
